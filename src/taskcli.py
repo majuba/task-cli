@@ -50,6 +50,14 @@ def write_tasklist(tasklist):
 def add_command(args):
     tasklist = load_tasklist()
     tasklist.last_id += 1
-    new_task = Task(tasklist.last_id, args.item, status="in_progress")
+    new_task = Task(tasklist.last_id, args.item, status="todo")
     tasklist.tasks.append(new_task)
     write_tasklist(tasklist)
+    print(f"task added successfully (Id: {tasklist.last_id})")
+
+def list_command(args):
+    tasklist = load_tasklist()
+    for task in tasklist.tasks:
+        if args.status and task.status != args.status:
+            continue
+        print(task.desc, f" Id: {task.task_id}")
